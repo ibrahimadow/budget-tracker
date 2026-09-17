@@ -1,63 +1,131 @@
-// ===== SpendWise JavaScript Foundation =====
+// ===== SpendWise Interactive App =====
 
-// ----- 1. Application Data (variables) -----
-let monthlyBudget = 1500;       // total budget for the month (number)
-let userName = "Ibrahim";       // name of the user (string)
+let monthlyBudget = 1500;
 
-// Expense-related data
-let expenseNames = ["Food", "Transport", "Rent", "Entertainment", "Savings", "Utilities"];
-let expenseAmounts = [320, 120, 500, 85, 400, 150];
+let expenses = [
+  { name: "Groceries", amount: 45, category: "Food" },
+  { name: "Bus Pass", amount: 20, category: "Transport" },
+  { name: "Rent", amount: 500, category: "Rent" },
+  { name: "Movie Night", amount: 15, category: "Entertainment" },
+  { name: "Phone Bill", amount: 30, category: "Other" }
+];
 
-// ----- 2. Collect User Input -----
-function getBudgetFromUser() {
-  let input = prompt("Enter your monthly budget ($):", monthlyBudget);
-  let parsedInput = parseFloat(input);
+const expenseForm = document.getElementById("expense-form");
+const expenseNameInput = document.getElementById("expense-name");
+const expenseAmountInput = document.getElementById("expense-amount");
+const expenseCategoryInput = document.getElementById("expense-category");
+const expensesListEl = document.getElementById("expenses-list");
+const budgetAmountEl = document.getElementById("budget-amount");
+const totalSpentEl = document.getElementById("total-spent");
+const remainingBalanceEl = document.getElementById("remaining-balance");
+const budgetStatusEl = document.getElementById("budget-status");
+const cardsGridEl = document.getElementById("cards-grid");
 
-  if (!isNaN(parsedInput) && parsedInput > 0) {
-    monthlyBudget = parsedInput;
-  }
-
-  console.log("Monthly budget set to: $" + monthlyBudget);
-}
-
-// ----- 3. Budget Calculations (functions) -----
-function calculateTotalExpenses(amounts) {
+function calculateTotalExpenses(expenseArray) {
   let total = 0;
-  for (let i = 0; i < amounts.length; i++) {
-    total += amounts[i];
+  for (let i = 0; i < expenseArray.length; i++) {
+    total += expenseArray[i].amount;
   }
   return total;
 }
 
-function calculateRemainingBalance(budget, totalExpenses) {
-  return budget - totalExpenses;
+function calculateCategoryTotals(expenseArray) {
+  let totals = {};
+  for (let i = 0; i < expenseArray.length; i++) {
+    let category = expenseArray[i].category;
+    let amount = expenseArray[i].amount;
+
+    if (totals[category]) {
+      totals[category] += amount;
+    } else {
+      totals[category] = amount;
+    }
+  }
+  return totals;
 }
 
-function calculateAverageExpense(amounts) {
-  let total = calculateTotalExpenses(amounts);
-  return total / amounts.length;
+function renderExpensesList() {
+  expensesListEl.innerHTML = "";
+
+  for (let i = 0; i < expenses.length; i++) {
+    let expense = expenses[i];
+
+    let li = document.createElement("li");
+    li.innerHTML = "<span>" + expense.name + " (" + expense.category + ")</span>" +
+      "<span>$" + expense.amount.toFixed(2) +
+      " <button class='delete-btn' data-index='" + i + "'>Delete</button></span>";
+    expensesListEl.appendChild(li);
+  }
+
+  let deleteButtons = document.querySelectorAll(".delete-btn");
+  deleteButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      let index = parseInt(button.getAttribute("data-index"));
+      expenses.splice(index, 1);
+      updateDashboard();
+    });
+  });
 }
 
-// ----- 4. Run the App and Display Results -----
-function runSpendWise() {
-  getBudgetFromUser();
+function renderCategoryCards() {
+  cardsGridEl.innerHTML = "";
+  let categoryTotals = calculateCategoryTotals(expenses);
 
-  let totalExpenses = calculateTotalExpenses(expenseAmounts);
-  let remainingBalance = calculateRemainingBalance(monthlyBudget, totalExpenses);
-  let averageExpense = calculateAverageExpense(expenseAmounts);
-
-  console.log("===== SpendWise Summary for " + userName + " =====");
-  console.log("Monthly Budget: $" + monthlyBudget.toFixed(2));
-  console.log("Total Expenses: $" + totalExpenses.toFixed(2));
-  console.log("Remaining Balance: $" + remainingBalance.toFixed(2));
-  console.log("Average Expense: $" + averageExpense.toFixed(2));
-
-  if (remainingBalance < 0) {
-    console.log("Warning: You are over budget this month!");
-  } else {
-    console.log("You are within your budget.");
+  for (let category in categoryTotals) {
+    let card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("tabindex", "0");
+    card.innerHTML = "<h3>" + category + "</h3>" +
+      "<p class='amount'>$" + categoryTotals[category].toFixed(2) + "</p>" +
+      "<p class='label'>This month</p>";
+    cardsGridEl.appendChild(card);
   }
 }
 
-// Start the app
-runSpendWise();
+function updateBudgetSummary() {
+  let totalSpent = calculateTotalExpenses(expenses);
+  let remainingBalance = monthlyBudget - totalSpent;
+
+  budgetAmountEl.textContent = monthlyBudget.toFixed(2);
+  totalSpentEl.textContent = totalSpent.toFixed(2);
+  remainingBalanceEl.textContent = remainingBalance.toFixed(2);
+
+  if (remainingBalance < 0) {
+    budgetStatusEl.textContent = "Warning: You are over budget this month!";
+    budgetStatusEl.className = "status-message over-budget";
+  } else if (remainingBalance < monthlyBudget * 0.1) {
+    budgetStatusEl.textContent = "Careful: You're close to your budget limit.";
+    budgetStatusEl.className = "status-message over-budget";
+  } else {
+    budgetStatusEl.textContent = "You are within your budget.";
+    budgetStatusEl.className = "status-message under-budget";
+  }
+}
+
+function updateDashboard() {
+  renderExpensesList();
+  renderCategoryCards();
+  updateBudgetSummary();
+}
+
+expenseForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  let name = expenseNameInput.value.trim();
+  let amount = parseFloat(expenseAmountInput.value);
+  let category = expenseCategoryInput.value;
+
+  if (name === "" || isNaN(amount) || amount <= 0) {
+    alert("Please enter a valid expense name and amount.");
+    return;
+  }
+
+  expenses.push({ name: name, amount: amount, category: category });
+
+  expenseNameInput.value = "";
+  expenseAmountInput.value = "";
+
+  updateDashboard();
+});
+
+updateDashboard();

@@ -98,49 +98,49 @@ h1, h2, h3 {
   border-radius: 50%;
 }
 
-/* ===== Cards Grid ===== */
-.cards-grid {
-  grid-area: main;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 24px;
-}
-
-/* ===== Card: Flexbox for internal layout ===== */
+/* ===== Card base style ===== */
 .card {
   background-color: var(--surface-color);
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ===== Cards Grid (category summary cards) ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cards-grid .card {
   display: flex;
   flex-direction: column;
   gap: 6px;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-.card h3 {
+.cards-grid .card h3 {
   margin: 0;
   color: var(--text-primary);
   font-size: 1rem;
 }
 
-.card .amount {
+.cards-grid .card .amount {
   font-size: 1.6rem;
   font-weight: 700;
   color: var(--brand-color);
   margin: 0;
 }
 
-.card .label {
+.cards-grid .card .label {
   color: var(--text-secondary);
   font-size: 0.85rem;
   margin: 0;
 }
 
-/* ===== Micro-interactions: hover + focus ===== */
-.card:hover,
-.card:focus {
+.cards-grid .card:hover,
+.cards-grid .card:focus {
   transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);
   outline: none;
@@ -183,4 +183,89 @@ h1, h2, h3 {
     --text-primary: #f0f0f0;
     --text-secondary: #aaaaaa;
   }
+}
+
+/* ===== Week 7: Interactive Elements ===== */
+
+.main-content {
+  grid-area: main;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.budget-summary p {
+  margin: 6px 0;
+  font-size: 1rem;
+}
+
+.status-message {
+  font-weight: 700;
+  margin-top: 10px !important;
+}
+
+.status-message.over-budget {
+  color: #c0392b;
+}
+
+.status-message.under-budget {
+  color: #27ae60;
+}
+
+.add-expense-form form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.add-expense-form input,
+.add-expense-form select {
+  padding: 10px 12px;
+  border: 1px solid #c9d4de;
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.add-expense-form button {
+  background-color: var(--brand-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.add-expense-form button:hover {
+  background-color: #23566f;
+}
+
+#expenses-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+#expenses-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+#expenses-list li:nth-child(even) {
+  background-color: #f4f8fb;
+}
+
+#expenses-list li .delete-btn {
+  background: none;
+  border: none;
+  color: #c0392b;
+  cursor: pointer;
+  font-weight: 700;
 }

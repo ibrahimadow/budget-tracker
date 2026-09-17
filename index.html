@@ -31,42 +31,43 @@
       </div>
     </header>
 
-    <main class="cards-grid">
+    <main class="main-content">
 
-      <div class="card" tabindex="0">
-        <h3>Food</h3>
-        <p class="amount">$320.00</p>
-        <p class="label">This month</p>
-      </div>
+      <section class="budget-summary card" id="budget-summary">
+        <h2>Budget Summary</h2>
+        <p><strong>Monthly Budget:</strong> $<span id="budget-amount">1500.00</span></p>
+        <p><strong>Total Spent:</strong> $<span id="total-spent">0.00</span></p>
+        <p><strong>Remaining:</strong> $<span id="remaining-balance">1500.00</span></p>
+        <p id="budget-status" class="status-message"></p>
+      </section>
 
-      <div class="card" tabindex="0">
-        <h3>Transport</h3>
-        <p class="amount">$120.00</p>
-        <p class="label">This month</p>
-      </div>
+      <section class="add-expense-form card">
+        <h2>Add Expense</h2>
+        <form id="expense-form">
+          <input type="text" id="expense-name" placeholder="Expense name" required>
+          <input type="number" id="expense-amount" placeholder="Amount" required>
+          <select id="expense-category">
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Rent">Rent</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Savings">Savings</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Other">Other</option>
+          </select>
+          <button type="submit" id="add-expense-btn">Add Expense</button>
+        </form>
+      </section>
 
-      <div class="card" tabindex="0">
-        <h3>Rent</h3>
-        <p class="amount">$500.00</p>
-        <p class="label">This month</p>
-      </div>
+      <section class="expenses-list card">
+        <h2>Your Expenses</h2>
+        <ul id="expenses-list">
+          <!-- Expense items will be added here dynamically -->
+        </ul>
+      </section>
 
-      <div class="card" tabindex="0">
-        <h3>Entertainment</h3>
-        <p class="amount">$85.00</p>
-        <p class="label">This month</p>
-      </div>
-
-      <div class="card" tabindex="0">
-        <h3>Savings</h3>
-        <p class="amount">$400.00</p>
-        <p class="label">This month</p>
-      </div>
-
-      <div class="card" tabindex="0">
-        <h3>Utilities</h3>
-        <p class="amount">$150.00</p>
-        <p class="label">This month</p>
+      <div class="cards-grid" id="cards-grid">
+        <!-- Category summary cards will be added here dynamically -->
       </div>
 
     </main>
