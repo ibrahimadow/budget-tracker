@@ -1,122 +1,158 @@
+/* ===== Base Setup ===== */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Lato', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
   margin: 0;
   padding: 20px;
 }
 
-h1 {
-  color: #2c3e50;
-  text-align: center;
+h1, h2 {
+  font-family: 'Poppins', sans-serif;
 }
 
-.subheading {
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
+/* ===== Card Base Style (Box Model in action) ===== */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 10px;
+  padding: 24px;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-img {
+/* ===== Page Header Card ===== */
+.page-header {
+  text-align: center;
+  background-color: #2c6e91;
+  border: none;
+}
+
+.page-header img {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
 }
 
+.page-header h1 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.page-header .subheading {
+  color: #dceaf5;
+  margin-top: 8px;
+}
+
+/* ===== How-to collapsible ===== */
 .how-to {
   max-width: 500px;
   margin: 0 auto 20px auto;
   background-color: #fff8dc;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 16px 24px;
+  border-radius: 10px;
+  border: 1px solid #e8d9a0;
+  font-family: 'Lato', sans-serif;
 }
 
-.card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 500px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
+/* ===== Add Expense Card ===== */
 #add-expense {
-  background-color: #eaf6ff;
+  background-color: #eaf4fa;
+  border: 1px solid #c9e0ee;
 }
 
-#your-expenses {
-  background-color: #f9f9e8;
+#add-expense h2 {
+  color: #2c6e91;
+  margin-top: 0;
 }
 
-/* Direct child selector: only inputs/selects directly inside the form get this spacing */
 .add-expense-section > form > input,
 .add-expense-section > form > select {
   display: block;
   width: 90%;
-  padding: 8px;
+  padding: 10px 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Negation pseudo-class */
-input:not([type="number"]) {
-  font-family: Arial, sans-serif;
-}
-
-/* Focus state */
-input:focus, select:focus {
-  outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 4px rgba(74,144,226,0.5);
-}
-
-button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  cursor: pointer;
+  border: 1px solid #c9d4de;
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
   font-size: 14px;
 }
 
+input:not([type="number"]) {
+  font-family: 'Lato', sans-serif;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #2c6e91;
+  box-shadow: 0 0 4px rgba(44,110,145,0.4);
+}
+
+button {
+  background-color: #2c6e91;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
 button:hover {
-  background-color: #3a7bc8;
+  background-color: #23566f;
+}
+
+/* ===== Expenses Table Card ===== */
+#your-expenses {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+}
+
+#your-expenses h2 {
+  color: #2c6e91;
+  margin-top: 0;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 12px;
+  font-family: 'Lato', sans-serif;
 }
 
 th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
+  border: 1px solid #dbe2ea;
+  padding: 10px 12px;
   text-align: left;
 }
 
 th {
-  background-color: #4a90e2;
+  background-color: #2c6e91;
   color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
 }
 
-/* Pseudo-class based on position */
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f4f8fb;
 }
 
-/* Descendant selector */
 .expenses-section td {
   color: #333;
 }
 
-/* Hover state on table rows */
 tbody tr:hover {
-  background-color: #dbeeff;
+  background-color: #dceaf5;
 }
 
+/* ===== Budgeting Tips / Video Card ===== */
 iframe {
   display: block;
-  margin: 10px auto;
+  margin: 10px auto 0 auto;
   max-width: 100%;
+  border-radius: 6px;
 }
