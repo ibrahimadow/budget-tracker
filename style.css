@@ -1,158 +1,186 @@
-/* ===== Base Setup ===== */
+/* ===== Theme (CSS Custom Properties) ===== */
+:root {
+  --brand-color: #2c6e91;
+  --accent-color: #f2a541;
+  --surface-color: #ffffff;
+  --bg-color: #f0f4f8;
+  --text-primary: #222222;
+  --text-secondary: #666666;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Lato', sans-serif;
-  background-color: #f0f4f8;
-  color: #333;
   margin: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== Overall Page Layout: CSS Grid ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "sidebar topbar"
+    "sidebar main";
+  min-height: 100vh;
+}
+
+/* ===== Sidebar: Flexbox for nav items ===== */
+.sidebar {
+  grid-area: sidebar;
+  background-color: var(--brand-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
 }
 
-h1, h2 {
+.sidebar-logo {
   font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 30px;
 }
 
-/* ===== Card Base Style (Box Model in action) ===== */
-.card {
-  background-color: #ffffff;
-  border: 1px solid #dbe2ea;
-  border-radius: 10px;
-  padding: 24px;
-  margin: 20px auto;
-  max-width: 500px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* ===== Page Header Card ===== */
-.page-header {
-  text-align: center;
-  background-color: #2c6e91;
-  border: none;
+.nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: background-color 200ms ease;
 }
 
-.page-header img {
-  display: block;
-  margin: 0 auto 10px auto;
+.nav-item:hover,
+.nav-item.active {
+  background-color: rgba(255,255,255,0.15);
 }
 
-.page-header h1 {
-  color: #ffffff;
+/* ===== Topbar: Flexbox ===== */
+.topbar {
+  grid-area: topbar;
+  background-color: var(--surface-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+.topbar h1 {
+  font-size: 1.3rem;
   margin: 0;
-  font-size: 2rem;
+  color: var(--text-primary);
 }
 
-.page-header .subheading {
-  color: #dceaf5;
-  margin-top: 8px;
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
 }
 
-/* ===== How-to collapsible ===== */
-.how-to {
-  max-width: 500px;
-  margin: 0 auto 20px auto;
-  background-color: #fff8dc;
-  padding: 16px 24px;
+.topbar-user img {
+  border-radius: 50%;
+}
+
+/* ===== Cards Grid ===== */
+.cards-grid {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 24px;
+}
+
+/* ===== Card: Flexbox for internal layout ===== */
+.card {
+  background-color: var(--surface-color);
   border-radius: 10px;
-  border: 1px solid #e8d9a0;
-  font-family: 'Lato', sans-serif;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-/* ===== Add Expense Card ===== */
-#add-expense {
-  background-color: #eaf4fa;
-  border: 1px solid #c9e0ee;
+.card h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1rem;
 }
 
-#add-expense h2 {
-  color: #2c6e91;
-  margin-top: 0;
+.card .amount {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--brand-color);
+  margin: 0;
 }
 
-.add-expense-section > form > input,
-.add-expense-section > form > select {
-  display: block;
-  width: 90%;
-  padding: 10px 12px;
-  margin: 10px 0;
-  border: 1px solid #c9d4de;
-  border-radius: 6px;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
+.card .label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0;
 }
 
-input:not([type="number"]) {
-  font-family: 'Lato', sans-serif;
-}
-
-input:focus, select:focus {
+/* ===== Micro-interactions: hover + focus ===== */
+.card:hover,
+.card:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
   outline: none;
-  border-color: #2c6e91;
-  box-shadow: 0 0 4px rgba(44,110,145,0.4);
+  border: 1px solid var(--accent-color);
 }
 
-button {
-  background-color: #2c6e91;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 6px;
+/* ===== Responsive: collapse to single column below 768px ===== */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 70px 1fr;
+    grid-template-areas:
+      "sidebar"
+      "topbar"
+      "main";
+  }
+
+  .sidebar {
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-button:hover {
-  background-color: #23566f;
-}
-
-/* ===== Expenses Table Card ===== */
-#your-expenses {
-  background-color: #ffffff;
-  border: 1px solid #dbe2ea;
-}
-
-#your-expenses h2 {
-  color: #2c6e91;
-  margin-top: 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-  font-family: 'Lato', sans-serif;
-}
-
-th, td {
-  border: 1px solid #dbe2ea;
-  padding: 10px 12px;
-  text-align: left;
-}
-
-th {
-  background-color: #2c6e91;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-}
-
-tr:nth-child(even) {
-  background-color: #f4f8fb;
-}
-
-.expenses-section td {
-  color: #333;
-}
-
-tbody tr:hover {
-  background-color: #dceaf5;
-}
-
-/* ===== Budgeting Tips / Video Card ===== */
-iframe {
-  display: block;
-  margin: 10px auto 0 auto;
-  max-width: 100%;
-  border-radius: 6px;
+/* ===== Stretch Goal: Dark theme ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-color: #4a9bc9;
+    --accent-color: #f2a541;
+    --surface-color: #1e2530;
+    --bg-color: #12161d;
+    --text-primary: #f0f0f0;
+    --text-secondary: #aaaaaa;
+  }
 }
