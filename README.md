@@ -5,3 +5,11 @@
 - Added a responsive media query that collapses the layout to a single column below 768px, verified in the browser.
 - Added hover/focus micro-interactions on dashboard cards using transform and box-shadow (250ms transition).
 - Implemented a dark theme stretch goal using prefers-color-scheme to override the CSS custom properties.
+
+## Week 6 Updates
+- Created and linked script.js to the SpendWise dashboard.
+- Stored budget and expense data using variables (monthlyBudget, userName, expenseNames, expenseAmounts).
+- Collected user input for the monthly budget using a JavaScript prompt().
+- Performed budget calculations: total expenses, remaining balance, and average expense.
+- Organized logic into reusable functions: calculateTotalExpenses(), calculateRemainingBalance(), calculateAverageExpense(), and getBudgetFromUser().
+- Displayed all results with clear labels in the browser console.
